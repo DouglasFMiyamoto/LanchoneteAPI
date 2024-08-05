@@ -27,7 +27,7 @@ services:
       - backend
 
   lanchoneteapi:
-    image: ${DOCKER_REGISTRY-}productsapi   
+    image: ${DOCKER_REGISTRY-}lanchoneteapi   
     container_name: lanchoneteapi
     build:
       context: .

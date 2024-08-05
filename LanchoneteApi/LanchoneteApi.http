@@ -1,6 +1,6 @@
-@LanchoneteApi_HostAddress = http://localhost:5151
+@LanchoneteApi_HostAddress = http://localhost:8080
 
-GET {{LanchoneteApi_HostAddress}}/weatherforecast/
+GET {{LanchoneteApi_HostAddress}}/Cliente/
 Accept: application/json
 
 ###
