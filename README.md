@@ -14,9 +14,12 @@ A lanchonete investirá em um sistema de autoatendimento de fast food, composto 
 
 ### Funcionalidades
 
-1. **Documentação do Sistema (DDD) com Event Storming**:
+1. **Documentação do Sistema (DDD)**:
     - Realização do pedido e pagamento;
     - Preparação e entrega do pedido.
+    ```bash
+    https://miro.com/app/board/uXjVK3gCvoA=/
+    ```
 
 2. **Aplicação Backend (Monolito)**:
     - Arquitetura Hexagonal.
