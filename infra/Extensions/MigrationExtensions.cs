@@ -1,9 +1,9 @@
-﻿using infra.Data;
+﻿using Lanchonete.infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace infra.Extensions
+namespace Lanchonete.infrastructure.Extensions
 {
     public static class MigrationExtensions
     {

@@ -1,6 +1,6 @@
-﻿using Dominio.Entidades;
-using infra.Data;
-using infra.Repository;
+﻿using Domain.Entidades;
+using Lanchonete.infrastructure.Data;
+using Lanchonete.infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 

@@ -1,13 +1,13 @@
-﻿using Dominio.Entidades;
+﻿using Domain.Entidades;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace infra.Data
+namespace Lanchonete.infrastructure.Data
 {
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {               
+        {
         }
 
         public DbSet<Cliente> Clientes { get; set; }
@@ -34,6 +34,38 @@ namespace infra.Data
             }
 
             base.OnModelCreating(modelBuilder);
+
+            //PedidoItem
+            modelBuilder.Entity<PedidoItem>()
+                .HasKey(pi => pi.Id);
+
+            modelBuilder.Entity<PedidoItem>()
+                .HasOne(pi => pi.Pedido)
+                .WithMany(p => p.Itens)
+                .HasForeignKey(pi => pi.PedidoId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PedidoItem>()
+                .HasOne(pi => pi.Produto)
+                .WithMany()
+                .HasForeignKey(pi => pi.ProdutoId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PedidoItem>(entity =>
+            {
+                entity.Property(pi => pi.Quantidade)
+                    .IsRequired();
+
+                entity.Property(pi => pi.Customizacao)
+                    .HasMaxLength(200);
+
+                entity.Property(pi => pi.Valor)
+                    .IsRequired();
+
+                entity.Property(pi => pi.DataCriacao)
+                    .IsRequired();
+            });
+
 
             // Data Seeding para a tabela Products
             modelBuilder.Entity<Categoria>().HasData(

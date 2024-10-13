@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace infra.Migrations
+namespace Lanchonete.infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class CriarTabelas_29_07 : Migration

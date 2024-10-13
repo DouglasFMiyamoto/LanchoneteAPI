@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lanchonete-api
+  labels:
+    app: lanchonete-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: lanchonete-api
+  template:
+    metadata:
+      labels:
+        app: lanchonete-api
+    spec:
+      containers:
+      - name: lanchonete-api
+        image: seu-usuario/sua-imagem-api:versao
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: "200m"
+            memory: "512Mi"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 20

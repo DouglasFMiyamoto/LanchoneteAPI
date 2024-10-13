@@ -2,7 +2,7 @@
 using Application.Repository;
 using Application.Utils;
 using AutoMapper;
-using Dominio.Entidades;
+using Domain.Entidades;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Dominio.Entidades;
+using Domain.Entidades;
 using Application.DTOs;
 
 namespace Application.Mappings

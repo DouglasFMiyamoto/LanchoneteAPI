@@ -2,10 +2,9 @@
 using Application.Repository;
 using Application.UseCases;
 using AutoMapper;
-using Dominio.Entidades;
-using Dominio.Enums;
+using Domain.Entidades;
+using Domain.Enums;
 using Moq;
-using System.ComponentModel.DataAnnotations;
 using Xunit;
 
 namespace Application.Tests
@@ -38,63 +37,10 @@ namespace Application.Tests
             _mapper = config.CreateMapper();
 
             _pedidoUseCase = new PedidoUseCase(_pedidoRepositoryMock.Object,
-                                                _clienteRepositoryMock.Object,
                                                 _produtoRepositoryMock.Object,
                                                 _pedidoItemRepositoryMock.Object,
+                                                _clienteRepositoryMock.Object,                                                                                                
                                                 _mapper);
-        }
-
-        [Fact]
-        public void Save_ShouldCallRepositorySave_WhenValidPedido()
-        {
-            // Arrange
-            var pedidoDTO = new CreatePedidoDTO
-            {
-                ClienteId = 1,
-                Itens = new List<CreatePedidoItemDTO>
-                {
-                    new CreatePedidoItemDTO { ProdutoId = 1, Quantidade = 2 }
-                }
-            };
-
-            _clienteRepositoryMock.Setup(repo => repo.GetById(1)).Returns(new Cliente { Id = 1 });
-            _produtoRepositoryMock.Setup(repo => repo.GetById(1)).Returns(new Produto { Id = 1, Valor = 50 });
-
-            // Act
-            _pedidoUseCase.Save(pedidoDTO);
-
-            // Assert
-            _pedidoRepositoryMock.Verify(repo => repo.Save(It.IsAny<Pedido>()), Times.Once);
-        }
-
-        [Fact]
-        public void Save_ShouldThrowValidationException_WhenClienteIsInvalid()
-        {
-            // Arrange
-            var pedidoDTO = new CreatePedidoDTO { ClienteId = 1 };
-
-            _clienteRepositoryMock.Setup(repo => repo.GetById(1)).Returns((Cliente)null);
-
-            // Act & Assert
-            Xunit.Assert.Throws<ValidationException>(() => _pedidoUseCase.Save(pedidoDTO));
-        }
-
-        [Fact]
-        public void Save_ShouldThrowValidationException_WhenItensIsNullOrEmpty()
-        {
-            // Arrange
-            var pedidoDTO = new CreatePedidoDTO { ClienteId = 1, Itens = null };
-
-            _clienteRepositoryMock.Setup(repo => repo.GetById(1)).Returns(new Cliente { Id = 1 });
-
-            // Act & Assert
-            Xunit.Assert.Throws<ValidationException>(() => _pedidoUseCase.Save(pedidoDTO));
-
-            // Arrange
-            pedidoDTO.Itens = new List<CreatePedidoItemDTO>();
-
-            // Act & Assert
-            Xunit.Assert.Throws<ValidationException>(() => _pedidoUseCase.Save(pedidoDTO));
         }
 
         [Fact]
@@ -103,7 +49,7 @@ namespace Application.Tests
             // Arrange
             var pedidos = new List<Pedido>
             {
-                new Pedido { Id = 1, ClienteId = 1, DataCriacao = DateTime.Now, Status = PedidoStauts.Recebido, Valor = 100 }
+                new Pedido { Id = 1, ClienteId = 1, DataCriacao = DateTime.Now, Status = PedidoStatus.Recebido, Valor = 100 }
             };
 
             _pedidoRepositoryMock.Setup(repo => repo.GetAll()).Returns(pedidos);

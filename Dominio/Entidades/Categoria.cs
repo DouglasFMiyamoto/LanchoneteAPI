@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Dominio.Entidades
+namespace Domain.Entidades
 {
     public class Categoria
     {

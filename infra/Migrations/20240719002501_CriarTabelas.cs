@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace infra.Migrations
+namespace Lanchonete.infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class CriarTabelas : Migration

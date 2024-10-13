@@ -2,7 +2,7 @@
 using Application.Repository;
 using Application.UseCases;
 using AutoMapper;
-using Dominio.Entidades;
+using Domain.Entidades;
 using Moq;
 using System.ComponentModel.DataAnnotations;
 using Xunit;

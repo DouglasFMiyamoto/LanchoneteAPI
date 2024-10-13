@@ -1,8 +1,8 @@
 ﻿using Application.Repository;
-using Dominio.Entidades;
-using infra.Data;
+using Domain.Entidades;
+using Lanchonete.infrastructure.Data;
 
-namespace infra.Repository
+namespace Lanchonete.infrastructure.Repositories
 {
     public class CategoriaRepository: ICategoriaRepository
     {

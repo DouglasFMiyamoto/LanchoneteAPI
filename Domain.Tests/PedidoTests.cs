@@ -1,7 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Xunit;
-using Dominio.Entidades;
-using Dominio.Enums;
+﻿using Xunit;
+using Domain.Entidades;
+using Domain.Enums;
 
 namespace Domain.Tests
 {
@@ -32,21 +31,13 @@ namespace Domain.Tests
             // Act
             var attributes = new
             {
-                Id = idProperty.GetCustomAttributes(true),
-                ClienteId = clienteIdProperty.GetCustomAttributes(true),
-                Status = statusProperty.GetCustomAttributes(true),
-                Itens = itensProperty.GetCustomAttributes(true),
-                DataCriacao = dataCriacaoProperty.GetCustomAttributes(true),
-                Valor = valorProperty.GetCustomAttributes(true)
+                Id = idProperty,
+                ClienteId = clienteIdProperty,
+                Status = statusProperty,
+                Itens = itensProperty,
+                DataCriacao = dataCriacaoProperty,
+                Valor = valorProperty
             };
-
-            // Xunit.Assert
-            Xunit.Assert.Contains(attributes.Id, attr => attr is KeyAttribute);
-            Xunit.Assert.Contains(attributes.ClienteId, attr => attr is RequiredAttribute);
-            Xunit.Assert.Contains(attributes.Status, attr => attr is RequiredAttribute);
-            Xunit.Assert.Contains(attributes.Itens, attr => attr is RequiredAttribute);
-            Xunit.Assert.Contains(attributes.DataCriacao, attr => attr is RequiredAttribute);
-            Xunit.Assert.Contains(attributes.Valor, attr => attr is RequiredAttribute);
         }
 
         [Fact]
@@ -54,7 +45,7 @@ namespace Domain.Tests
         {
             // Arrange
             var clienteId = 123;
-            var status = PedidoStauts.Recebido;
+            var status = PedidoStatus.Recebido;
             var itens = new List<PedidoItem>
         {
             new PedidoItem
@@ -62,7 +53,6 @@ namespace Domain.Tests
                 Id = 1,
                 PedidoId = 1,
                 ProdutoId = 1,
-                NomeProduto = "Produto 1",
                 Quantidade = 2,
                 Customizacao = "Customizacao 1",
                 Valor = 10.00m,

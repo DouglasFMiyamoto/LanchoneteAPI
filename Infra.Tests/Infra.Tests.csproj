@@ -25,8 +25,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
-    <ProjectReference Include="..\Dominio\Dominio.csproj" />
-    <ProjectReference Include="..\infra\infra.csproj" />
+    <ProjectReference Include="..\Dominio\Domain.csproj" />
+    <ProjectReference Include="..\infra\Lanchonete.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

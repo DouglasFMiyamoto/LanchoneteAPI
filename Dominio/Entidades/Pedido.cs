@@ -1,8 +1,8 @@
-﻿using Dominio.Enums;
+﻿using Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Dominio.Entidades
+namespace Domain.Entidades
 {
     public class Pedido
     {
@@ -11,7 +11,7 @@ namespace Dominio.Entidades
             Itens = new HashSet<PedidoItem>();
         }
 
-        public Pedido(int clienteId, PedidoStauts stauts, ICollection<PedidoItem> itens, DateTime dataCriacao, decimal valor)
+        public Pedido(int clienteId, PedidoStatus stauts, ICollection<PedidoItem> itens, DateTime dataCriacao, decimal valor)
         {
             ClienteId = clienteId;
             Status = stauts;
@@ -26,7 +26,7 @@ namespace Dominio.Entidades
         [Required]
         public int ClienteId { get; set; }
         [Required]
-        public PedidoStauts Status { get; set; }
+        public PedidoStatus Status { get; set; }
         [Required]
         public ICollection<PedidoItem> Itens { get; set; }
         [Required]

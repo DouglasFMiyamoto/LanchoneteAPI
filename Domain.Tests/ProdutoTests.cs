@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Xunit;
-using Dominio.Entidades;
+using Domain.Entidades;
 
 namespace Domain.Tests
 {

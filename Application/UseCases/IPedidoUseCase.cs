@@ -1,18 +1,28 @@
 ﻿using Application.DTOs;
+using Domain.Enums;
 
 namespace Application.UseCases
 {
     public interface IPedidoUseCase
     {
         /// <summary>
-        /// Método responsável por acessar a infra de pedido e salvar o registro na base de dados
-        /// </summary>
-        /// <param name="pedidoDTO"></param>
-        void Save(CreatePedidoDTO pedidoDTO);
-        /// <summary>
         /// Método responsável por recuperar todos os pedidos
         /// </summary>
         /// <returns></returns>
         IList<ResponsePedidoDTO> GetAll();
+
+        /// <summary>
+        /// Retorna a lista de pedidos ordenada por data e status
+        /// </summary>
+        /// <returns></returns>
+        Task<IList<ResponsePedidoDTO>> GetPedidosOrdenadosPorStatusEDataAsync();
+
+
+        /// <summary>
+        /// Atualiza o status do pedido
+        /// </summary>
+        /// <param name="pedidoId"></param>
+        /// <param name="status"></param>
+        Task<bool>AtualizarStatusPedido(int pedidoId, PedidoStatus status);
     }
 }
