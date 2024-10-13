@@ -1,7 +1,7 @@
-﻿using Dominio.Entidades;
-using Dominio.Enums;
-using infra.Data;
-using infra.Repository;
+﻿using Domain.Entidades;
+using Domain.Enums;
+using Lanchonete.infrastructure.Data;
+using Lanchonete.infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
@@ -27,7 +27,7 @@ namespace Infra.Tests
         public void Save_ShouldAddPedidoToDatabase()
         {
             // Arrange
-            var pedido = new Pedido { ClienteId = 1, Status = PedidoStauts.Recebido, DataCriacao = DateTime.Now, Valor = 100.0m };
+            var pedido = new Pedido { ClienteId = 1, Status = PedidoStatus.Recebido, DataCriacao = DateTime.Now, Valor = 100.0m };
 
             // Act
             _pedidoRepository.Save(pedido);
@@ -45,8 +45,8 @@ namespace Infra.Tests
         public void GetAll_ShouldReturnAllPedidos()
         {
             // Arrange
-            var pedido1 = new Pedido { ClienteId = 1, Status = PedidoStauts.Recebido, DataCriacao = DateTime.Now, Valor = 100.0m };
-            var pedido2 = new Pedido { ClienteId = 2, Status = PedidoStauts.Recebido, DataCriacao = DateTime.Now, Valor = 200.0m };
+            var pedido1 = new Pedido { ClienteId = 1, Status = PedidoStatus.Recebido, DataCriacao = DateTime.Now, Valor = 100.0m };
+            var pedido2 = new Pedido { ClienteId = 2, Status = PedidoStatus.Recebido, DataCriacao = DateTime.Now, Valor = 200.0m };
             _context.Pedidos.AddRange(pedido1, pedido2);
             _context.SaveChanges();
 

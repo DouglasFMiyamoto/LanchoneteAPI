@@ -1,9 +1,9 @@
 ﻿using Application.Repository;
-using Dominio.Entidades;
-using infra.Data;
+using Domain.Entidades;
+using Lanchonete.infrastructure.Data;
 using System.Text;
 
-namespace infra.Repository
+namespace Lanchonete.infrastructure.Repositories
 {
     public class ProdutoRepository : IProdutoRepository
     {

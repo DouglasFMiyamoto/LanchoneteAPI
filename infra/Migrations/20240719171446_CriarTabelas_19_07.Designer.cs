@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using infra.Data;
+using Lanchonete.infrastructure.Data;
 
 #nullable disable
 
-namespace infra.Migrations
+namespace Lanchonete.infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20240719171446_CriarTabelas_19_07")]

@@ -1,4 +1,4 @@
-﻿using Dominio.Entidades;
+﻿using Domain.Entidades;
 
 namespace Application.Repository
 {

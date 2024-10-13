@@ -1,7 +1,7 @@
 ﻿using Application.DTOs;
 using Application.Repository;
 using AutoMapper;
-using Dominio.Entidades;
+using Domain.Entidades;
 using System.ComponentModel.DataAnnotations;
 
 namespace Application.UseCases

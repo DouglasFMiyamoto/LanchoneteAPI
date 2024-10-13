@@ -1,10 +1,11 @@
 using Application;
-using infra.Data;
-using infra.Extensions;
-using Infra;
+using Lanchonete.infrastructure.Data;
+using Lanchonete.infrastructure.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using Lanchonete.Infrastructure.Configurations;
+using LanchoneteApi.Configurations;
 
 internal class Program
 {
@@ -35,7 +36,7 @@ internal class Program
         //builder.Services.AddSwaggerGen();
 
         ApplicationBootstrapper.Register(builder.Services);
-        InfraBootstrapper.Register(builder.Services);
+        DependencyInjection.Register(builder.Services);
 
         var app = builder.Build();
 

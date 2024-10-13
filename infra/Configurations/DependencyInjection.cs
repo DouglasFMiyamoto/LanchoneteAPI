@@ -1,10 +1,10 @@
 ﻿using Application.Repository;
-using infra.Repository;
+using Lanchonete.infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infra
+namespace Lanchonete.Infrastructure.Configurations
 {
-    public static class InfraBootstrapper
+    public static class DependencyInjection
     {
         public static void Register(IServiceCollection services)
         {
