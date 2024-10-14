@@ -26,7 +26,7 @@ namespace LanchoneteApi.Controllers
         }
 
         /// <summary>
-        /// Webhook de confirmação de pagamento
+        /// Webhook de confirmação de pagamento - PagamentoStatus: APROVADO e RECUSADO
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
