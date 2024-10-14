@@ -58,13 +58,12 @@ Essa aplicação segue um modelo de arquitetura limpa com a seguinte estrutura:
 - Clients: Representam os usuários ou sistemas externos que se conectam à API. Eles se comunicam com a aplicação através da porta 30080.
 - Cluster: Responsável por orquestrar os contêineres, escalá-los, balancear carga e manter a saúde dos serviços em execução.
 - Node : Um Node é uma máquina física ou virtual que faz parte do cluster Kubernetes e hospeda os Pods.
-- Pod: Unidade básica de execução no Kubernetes, permitindo que contêineres relacionados sejam gerenciados como uma única entidade.
-- API Service: Este é um objeto Kubernetes do tipo svc que atua como um proxy para enviar tráfego de rede para um ou mais pods executando a aplicação API. O Service garante que a API possa ser acessada de maneira estável e confiável.
 - Pod: Aqui temos um Pod que representa a unidade de implantação da aplicação API dentro do cluster Kubernetes. O Pod encapsula um ou mais contêineres da aplicação, isolando-a em seu próprio ambiente de execução.
+- API Service: Este é um objeto Kubernetes do tipo svc que atua como um proxy para enviar tráfego de rede para um ou mais pods executando a aplicação API. O Service garante que a API possa ser acessada de maneira estável e confiável.
 - HPA (Horizontal Pod Autoscaler): O HPA permite o escalonamento automático do número de réplicas do Pod baseado em métricas específicas, como CPU ou tráfego de rede, para garantir a disponibilidade e a eficiência da aplicação conforme a demanda muda.
-- Payment: Responsável por processar pagamentos (ainda não foi implementa a integração com o mercado livre).
 - DB Service: Serviço com a porta 5432 é um banco de dados PostgreSQL.
 - PVC (Persistent Volume Claim): Este é um recurso de armazenamento persistente que está associado ao banco de dados PostgreSQL, garantindo que os dados persistam além do ciclo de vida dos contêineres e Pods.
+- Payment: Serviço externo responsável por processar pagamentos (ainda não foi implementa a integração com o mercado livre).
 
 
 ## Como Executar o Projeto
