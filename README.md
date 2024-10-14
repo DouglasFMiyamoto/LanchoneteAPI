@@ -22,27 +22,39 @@ A lanchonete investirá em um sistema de autoatendimento de fast food, composto 
     ```
 
 2. **Aplicação Backend (Monolito)**:
-    - Arquitetura Hexagonal.
+    - Clean architecture.
+    - Clean code.
     - APIs para:
         - Cadastro do Cliente.
         - Identificação do Cliente via CPF.
-        - Criar, editar e remover produtos.
-        - Buscar produtos por categoria.
-        - Fake checkout: enviar os produtos escolhidos para a fila (finalização do pedido).
+        - Checkout do pedido.
         - Listar os pedidos.
+        - Consultar o status do pedido.
+        - Listar os pedidos ordenados por status e data.
+        - Atualizar o status do pedido
+        - Criar, editar, listar e remover produtos.
+        - Buscar produtos por categoria.
+        - Buscar produtos pelo id.
+        - Webhook para confirmação do pagamento do pedido.
     - Documentação das APIs disponível no Swagger.
 
 3. **Docker**:
     - Dockerfile configurado para a execução da aplicação.
     - `docker-compose.yml` para subir o ambiente completo.
 
-### Limitações de Infraestrutura
-
-- 1 instância para banco de dados.
-- 1 instância para executar a aplicação.
-
 ## Estrutura do Projeto
-![image](https://github.com/user-attachments/assets/2c209ca9-be8c-4061-94e5-20d336cef75b)
+![image](https://github.com/user-attachments/assets/a4a7e2ec-bebb-4938-aa3d-013733e6313b)
+
+## Arquitetura
+Essa aplicação segue um modelo de arquitetura limpa com a seguinte estrutura:
+- Api: O ponto de entrada para solicitações HTTP.
+- Application: Contém a lógica de negócios (Use Cases).
+- Domain: Contém a lógica de negócios mais interna (Entidades).
+- Infrastructure: Implementa os mecanismos de persistência e acesso aos dados.
+
+## Arquitetura da solução
+![image](https://github.com/user-attachments/assets/c7da6148-26ae-4b75-a9cd-1c36d1727bd1)
+
 
 ## Como Executar o Projeto
 
