@@ -73,7 +73,7 @@ Essa aplicação segue um modelo de arquitetura limpa com a seguinte estrutura:
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
 
-### Passos para Execução
+### Passos para Execução (Docker-Compose)
 
 1. Clone o repositório:
 
@@ -93,3 +93,43 @@ http://localhost:8080/swagger/index.html
 ```
 4. Ou se preferir execute o projeto pelo visual studio.
 
+### Passos para Execução (Kubernetes K8s)
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/DouglasFMiyamoto/LanchoneteAPI
+```
+```bash
+cd nome-do-repositorio
+```
+2. Habilitar o Kubernetes nas configurações do Docker Desktop:
+   ![image](https://github.com/user-attachments/assets/774277e6-629c-41ac-8542-fbff34ed6a09)
+   
+3. Execute os comandos abaixo para aplicar todos os manifestos do Kubernetes:
+```bash
+kubectl apply -f postgres-deployment.yaml
+```
+```bash
+kubectl apply -f postgres-pvc.yaml
+```
+```bash
+kubectl apply -f postgres-service.yaml
+```
+```bash
+kubectl apply -f metrics.yaml
+```
+```bash
+kubectl apply -f lanchoneteapi-deployment.yaml
+```
+```bash
+kubectl apply -f lanchoneteapi-hpa.yaml
+```
+```bash
+kubectl apply -f lanchoneteapi-service.yaml
+```
+4. Acesse a documentação das APIs via Swagger em:
+```bash
+http://localhost:30080/swagger/index.html
+```
+5. Ou se preferir execute o projeto pelo visual studio.
