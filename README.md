@@ -58,6 +58,7 @@ Essa aplicação segue um modelo de arquitetura limpa com a seguinte estrutura:
 - Clients: Representam os usuários ou sistemas externos que se conectam à API. Eles se comunicam com a aplicação através da porta 30080.
 - Cluster: Responsável por orquestrar os contêineres, escalá-los, balancear carga e manter a saúde dos serviços em execução.
 - Node : Um Node é uma máquina física ou virtual que faz parte do cluster Kubernetes e hospeda os Pods.
+- Pod: Unidade básica de execução no Kubernetes, permitindo que contêineres relacionados sejam gerenciados como uma única entidade.
 - API Service: Este é um objeto Kubernetes do tipo svc que atua como um proxy para enviar tráfego de rede para um ou mais pods executando a aplicação API. O Service garante que a API possa ser acessada de maneira estável e confiável.
 - Pod: Aqui temos um Pod que representa a unidade de implantação da aplicação API dentro do cluster Kubernetes. O Pod encapsula um ou mais contêineres da aplicação, isolando-a em seu próprio ambiente de execução.
 - HPA (Horizontal Pod Autoscaler): O HPA permite o escalonamento automático do número de réplicas do Pod baseado em métricas específicas, como CPU ou tráfego de rede, para garantir a disponibilidade e a eficiência da aplicação conforme a demanda muda.
