@@ -32,4 +32,12 @@ spec:
         - name: ASPNETCORE_ENVIRONMENT
           value: "Development"
         - name: ConnectionStrings__DefaultConnection
-          value: "Host=postgres-service;Port=5432;Database=dbLanchonete;Username=lanchoneteApp;Password=Unica@123" 
+          value: "Host=${DB_HOST};Port=5432;Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}"
+        - name: DB_HOST
+          value: "terraform-20241217144920197700000001.chqo2oe6wh35.us-east-1.rds.amazonaws.com"
+        - name: DB_NAME
+          value: "dbLanchonete"
+        - name: DB_USER
+          value: "lanchoneteApp"  
+        - name: DB_PASSWORD
+          value: "Unica123"
