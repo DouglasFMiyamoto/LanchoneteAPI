@@ -29,10 +29,10 @@ jobs:
 
     - name: Push to Amazon ECR
       run: |
-        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 194722421948.dkr.ecr.us-east-1.amazonaws.com
-        docker tag lanchonete-api:latest 194722421948.dkr.ecr.us-east-1.amazonaws.com/lanchonete-api:latest
-        docker push 194722421948.dkr.ecr.us-east-1.amazonaws.com/lanchonete-api:latest
 
     - name: Update Kubernetes Deployment
       run: |
         kubectl set image deployment/lanchoneteapi-deployment lanchoneteapi=194722421948.dkr.ecr.us-east-1.amazonaws.com/lanchonete-api:latest
+        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 194722421948.dkr.ecr.us-east-1.amazonaws.com
+        docker tag lanchonete-api:latest 194722421948.dkr.ecr.us-east-1.amazonaws.com/lanchonete-api:latest
+        docker push 194722421948.dkr.ecr.us-east-1.amazonaws.com/lanchonete-api:latest
