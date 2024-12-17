@@ -6,41 +6,45 @@ on:
       - closed
     branches:
       - main  
-
+      
 jobs:
   deploy:
+    name: Build, Push, and Deploy API
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
-    
+
+    env:
+      AWS_REGION: us-east-1
+      EKS_CLUSTER_NAME: lanchonete-cluster
+      DOCKER_IMAGE_NAME: dmiyamoto86/lanchoneteapi
+      DOCKER_IMAGE_TAG: latest
+
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
 
-    - name: Configure AWS credentials
+    - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v3
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
+        role-to-assume: arn:aws:iam::194722421948:role/github-actions-role
+        aws-region: ${{ env.AWS_REGION }}
 
-    - name: Create ECR Repository if not exists
+    - name: Update kubeconfig for EKS
       run: |
-        aws ecr describe-repositories --repository-names lanchonete-api || \
-        aws ecr create-repository --repository-name lanchonete-api
+        aws eks update-kubeconfig \
+          --region $AWS_REGION \
+          --name $EKS_CLUSTER_NAME
 
-    - name: Build Docker Image
-      run: |
-        docker build -t lanchonete-api:latest -f LanchoneteApi/Dockerfile .
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Login to Amazon ECR
+    - name: Build and Push Docker Image
       run: |
-        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 194722421948.dkr.ecr.us-east-1.amazonaws.com
+        docker build -t $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG .
+        docker push $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG
 
-    - name: Push Docker Image to Amazon ECR
+    - name: Deploy to Kubernetes
       run: |
-        docker tag lanchonete-api:latest 194722421948.dkr.ecr.us-east-1.amazonaws.com/lanchonete-api:latest
-        docker push 194722421948.dkr.ecr.us-east-1.amazonaws.com/lanchonete-api:latest
-
-    - name: Update Kubernetes Deployment
-      run: |
-        kubectl set image deployment/lanchoneteapi-deployment lanchoneteapi=194722421948.dkr.ecr.us-east-1.amazonaws.com/lanchonete-api:latest
+        kubectl apply -f k8s/deployment.yaml
