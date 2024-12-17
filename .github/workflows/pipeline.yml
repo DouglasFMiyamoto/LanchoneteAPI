@@ -25,7 +25,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t lanchonete-api:latest -f LanchoneteApi/Dockerfile LanchoneteApi
+        docker build -t lanchonete-api:latest -f LanchoneteApi/Dockerfile .
 
     - name: Push to Amazon ECR
       run: |
