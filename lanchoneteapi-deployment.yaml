@@ -32,4 +32,4 @@ spec:
         - name: ASPNETCORE_ENVIRONMENT
           value: "Development"
         - name: ConnectionStrings__DefaultConnection
-          value: "Host=postgres-service;Port=5432;Database=dbLanchonete;Username=lanchoneteApp;Password=Unica@123"
+          value: "Host=postgres-service;Port=5432;Database=dbLanchonete;Username=lanchoneteApp;Password=Unica@123" 
