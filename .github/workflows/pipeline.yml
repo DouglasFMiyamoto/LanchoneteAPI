@@ -1,0 +1,38 @@
+name: Deploy API
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main  
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v3
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Build Docker image
+      run: |
+        docker build -t lanchonete-api:latest .
+
+    - name: Push to Amazon ECR
+      run: |
+        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <your_account_id>.dkr.ecr.us-east-1.amazonaws.com
+        docker tag lanchonete-api:latest <your_account_id>.dkr.ecr.us-east-1.amazonaws.com/lanchonete-api:latest
+        docker push <your_account_id>.dkr.ecr.us-east-1.amazonaws.com/lanchonete-api:latest
+
+    - name: Update Kubernetes Deployment
+      run: |
+        kubectl set image deployment/lanchoneteapi-deployment lanchoneteapi=<your_account_id>.dkr.ecr.us-east-1.amazonaws.com/lanchonete-api:latest
