@@ -21,4 +21,4 @@ RUN dotnet publish "./LanchoneteApi.csproj" -c $BUILD_CONFIGURATION -o /app/publ
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "LanchoneteApi.dll"]
+ENTRYPOINT ["dotnet", "LanchoneteApi.dll"] 

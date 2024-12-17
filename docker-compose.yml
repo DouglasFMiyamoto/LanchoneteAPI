@@ -29,7 +29,7 @@ services:
   lanchoneteapi:
     image: ${DOCKER_REGISTRY-}lanchoneteapi   
     container_name: lanchoneteapi
-    build:
+    build: 
       context: .
       dockerfile: LanchoneteApi/Dockerfile
     depends_on:
