@@ -8,7 +8,7 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["LanchoneteApi/LanchoneteApi.csproj", "LanchoneteApi/"]
+COPY ["./LanchoneteApi.csproj", "LanchoneteApi/"]
 RUN dotnet restore "./LanchoneteApi.csproj"
 COPY . .
 WORKDIR "/src/LanchoneteApi"
