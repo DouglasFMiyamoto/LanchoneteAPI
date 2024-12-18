@@ -16,6 +16,7 @@ jobs:
       EKS_CLUSTER_NAME: lanchonete-cluster
       DOCKER_IMAGE_NAME: dmiyamoto86/lanchoneteapi
       DOCKER_IMAGE_TAG: latest
+      AWS_REGION: us-east-1
 
     steps:
     - name: Checkout Code
@@ -24,13 +25,14 @@ jobs:
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v3
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
-
+        role-to-assume: arn:aws:iam::194722421948:role/lanchonete-cluster-cluster-20241217214657016100000002
+        aws-region: ${{ env.AWS_REGION }}
+        role-session-name: GitHubActionsSession
+        id-token: true  # Habilita a autenticação via OIDC
+        
     - name: Update kubeconfig for EKS
       run: |
-        aws eks --region us-east-1 update-kubeconfig --name $EKS_CLUSTER_NAME
+        aws eks --region $AWS_REGION update-kubeconfig --name $EKS_CLUSTER_NAME
 
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
