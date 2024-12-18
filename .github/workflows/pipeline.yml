@@ -5,7 +5,7 @@ on:
     types:
       - closed
     branches:
-      - main  
+      - main
 
 jobs:
   deploy:
@@ -25,25 +25,36 @@ jobs:
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v3
       with:
-        role-to-assume: arn:aws:iam::194722421948:role/lanchonete-cluster-cluster-20241217214657016100000002
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ env.AWS_REGION }}
-        role-session-name: GitHubActionsSession
 
-    - name: Update kubeconfig for EKS
+    - name: Install eksctl
       run: |
-        aws eks --region $AWS_REGION update-kubeconfig --name $EKS_CLUSTER_NAME
+        curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/v0.121.0/eksctl_Linux_amd64.tar.gz" | tar xz -C /tmp
+        sudo mv /tmp/eksctl /usr/local/bin
 
-    - name: Log in to Docker Hub
-      uses: docker/login-action@v2
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Update kubeconfig using eksctl
+      run: |
+        eksctl utils associate-iam-oidc-provider --region $AWS_REGION --cluster $EKS_CLUSTER_NAME --approve
+        eksctl create iamserviceaccount \
+          --region $AWS_REGION \
+          --name eks-service-account \
+          --namespace default \
+          --cluster $EKS_CLUSTER_NAME \
+          --attach-policy-arn arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy \
+          --approve
 
     - name: Build and Push Docker Image
       run: |
         docker build -t $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG -f LanchoneteApi/Dockerfile .
         docker push $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG
 
-    - name: Deploy to Kubernetes
+    - name: Deploy to Kubernetes using eksctl
       run: |
-        kubectl apply -f deployment.yaml --validate=false
+        eksctl create deployment \
+          --name lanchoneteapi \
+          --image $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG \
+          --cluster $EKS_CLUSTER_NAME \
+          --region $AWS_REGION \
+          --kubeconfig ~/.kube/config
