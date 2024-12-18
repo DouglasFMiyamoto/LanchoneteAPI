@@ -22,12 +22,11 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v3
 
-    - name: Configure AWS Credentials using OIDC
+    - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v3
       with:
         role-to-assume: arn:aws:iam::194722421948:role/lanchonete-cluster-cluster-20241217214657016100000002
         aws-region: ${{ env.AWS_REGION }}
-        web-identity-token-file: ${{ github.token }}  
         role-session-name: GitHubActionsSession
 
     - name: Update kubeconfig for EKS
