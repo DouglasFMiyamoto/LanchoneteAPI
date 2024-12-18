@@ -5,11 +5,7 @@ on:
     types:
       - closed
     branches:
-      - main
-
-permissions:
-  id-token: write
-  contents: read
+      - main  
 
 jobs:
   deploy:
