@@ -5,7 +5,7 @@ on:
     types:
       - closed
     branches:
-      - main
+      - main  
 
 jobs:
   deploy:
@@ -22,16 +22,13 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v3
 
-    - name: Configure AWS Credentials
+    - name: Configure AWS Credentials using OIDC
       uses: aws-actions/configure-aws-credentials@v3
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        role-to-assume: arn:aws:iam::194722421948:role/lanchonete-cluster-cluster-20241217214657016100000002
         aws-region: ${{ env.AWS_REGION }}
-
-    - name: Install Helm
-      run: |
-        curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+        web-identity-token-file: ${{ github.token }}  
+        role-session-name: GitHubActionsSession
 
     - name: Update kubeconfig for EKS
       run: |
@@ -48,10 +45,6 @@ jobs:
         docker build -t $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG -f LanchoneteApi/Dockerfile .
         docker push $DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG
 
-    - name: Deploy to Kubernetes using Helm
+    - name: Deploy to Kubernetes
       run: |
-        helm repo add stable https://charts.helm.sh/stable
-        helm upgrade --install lanchoneteapi stable/nginx-ingress \
-          --set image.repository=$DOCKER_IMAGE_NAME \
-          --set image.tag=$DOCKER_IMAGE_TAG \
-          --set namespace=default
+        kubectl apply -f deployment.yaml --validate=false
