@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      AWS_REGION: us-east-1
       EKS_CLUSTER_NAME: lanchonete-cluster
       DOCKER_IMAGE_NAME: dmiyamoto86/lanchoneteapi
       DOCKER_IMAGE_TAG: latest
@@ -27,12 +26,12 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: $AWS_REGION
+        aws-region: us-east-1
 
     - name: Update kubeconfig for EKS
       run: |
         aws eks update-kubeconfig \
-          --region $AWS_REGION \
+          --region us-east-1 \
           --name $EKS_CLUSTER_NAME
 
     - name: Log in to Docker Hub
